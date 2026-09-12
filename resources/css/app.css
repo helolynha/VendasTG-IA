@@ -1,0 +1,21 @@
+:root {
+    color-scheme: light;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.form-page {
+    max-width: 760px;
+}
+
+.table th {
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
