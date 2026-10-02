@@ -7,7 +7,7 @@
 
         <title>{{ config('app.name', 'VendasTG') }}</title>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9Oer+R4zWReHsu8H2nA6j3h6Iw1p5Y8h3y8VnKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
         @if (file_exists(public_path('hot')) || file_exists(public_path('build/manifest.json')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -16,10 +16,10 @@
     <body class="bg-body-tertiary text-body">
         @auth
             <div class="min-vh-100">
-                <nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
+                <nav class="navbar navbar-expand-lg bg-white border-bottom app-navbar">
                     <div class="container py-2">
                         <a href="{{ route('dashboard') }}" class="navbar-brand fw-semibold text-primary">
-                            VendasTG
+                            <span class="brand-mark" aria-hidden="true">TG</span> VendasTG
                         </a>
 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Abrir menu">
@@ -29,21 +29,21 @@
                         <div id="mainNavigation" class="collapse navbar-collapse">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a href="{{ route('produtos.index') }}" class="nav-link">Produtos</a>
+                                    <a href="{{ route('produtos.index') }}" class="nav-link {{ request()->routeIs('produtos.*') ? 'active' : '' }}" @if (request()->routeIs('produtos.*')) aria-current="page" @endif>Produtos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('dashboard') }}" class="nav-link">Inicio</a>
+                                    <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" @if (request()->routeIs('dashboard')) aria-current="page" @endif>Início</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('clientes.index') }}" class="nav-link">Clientes</a>
+                                    <a href="{{ route('clientes.index') }}" class="nav-link {{ request()->routeIs('clientes.*') ? 'active' : '' }}" @if (request()->routeIs('clientes.*')) aria-current="page" @endif>Clientes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('usuarios.index') }}" class="nav-link">Usuarios</a>
+                                    <a href="{{ route('usuarios.index') }}" class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}" @if (request()->routeIs('usuarios.*')) aria-current="page" @endif>Usuarios</a>
                                 </li>
                             </ul>
 
                             <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2">
-                                <span class="badge text-bg-light border text-secondary fw-medium px-3 py-2">
+                                <span class="badge text-bg-light border text-secondary fw-medium px-3 py-2 account-email">
                                     {{ auth()->user()->email }}
                                 </span>
                                 <form method="POST" action="{{ route('logout') }}">
@@ -57,7 +57,7 @@
                     </div>
                 </nav>
 
-                <main class="container py-4 py-lg-5">
+                <main id="main-content" class="container py-4 py-lg-5 app-main">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -66,6 +66,12 @@
 
                     @yield('content')
                 </main>
+                <footer class="app-footer">
+                    <div class="container d-flex flex-wrap justify-content-between gap-2">
+                        <span>VendasTG · Gestão comercial</span>
+                        <span>Clientes, produtos e equipe em um só lugar.</span>
+                    </div>
+                </footer>
             </div>
         @else
             @yield('content')
