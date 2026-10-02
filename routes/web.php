@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +16,10 @@ Route::middleware('auth')->group(function (): void {
     Route::middleware('admin')->group(function (): void {
         Route::resource('usuarios', UsuarioController::class)->except(['index', 'show']);
         Route::resource('clientes', ClienteController::class)->only(['edit', 'update', 'destroy']);
+        Route::resource('produtos', ProdutoController::class)->parameters(['produtos' => 'produto'])->only(['edit', 'update', 'destroy']);
     });
 
     Route::resource('usuarios', UsuarioController::class)->only(['index', 'show']);
     Route::resource('clientes', ClienteController::class)->only(['index', 'create', 'store', 'show']);
+    Route::resource('produtos', ProdutoController::class)->parameters(['produtos' => 'produto'])->only(['index', 'create', 'store', 'show']);
 });

@@ -29,6 +29,9 @@
                         <div id="mainNavigation" class="collapse navbar-collapse">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
+                                    <a href="{{ route('produtos.index') }}" class="nav-link">Produtos</a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('dashboard') }}" class="nav-link">Inicio</a>
                                 </li>
                                 <li class="nav-item">

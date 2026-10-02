@@ -19,6 +19,30 @@ class Produto extends Model
 
     public $timestamps = false;
 
+    protected static function booted(): void
+    {
+        static::saving(function (Produto $produto): void {
+            if ($produto->status !== 3 && $produto->estoque === 0) {
+                $produto->status = 2;
+            } elseif ($produto->status !== 3
+                && $produto->getOriginal('status') === 2
+                && $produto->isDirty('estoque')
+                && $produto->estoque > 0) {
+                $produto->status = 1;
+            }
+        });
+    }
+
+    public function statusLabel(): string
+    {
+        return match ($this->status) {
+            1 => 'Ativo',
+            2 => 'Em falta',
+            3 => 'Inativo',
+            default => 'Não informado',
+        };
+    }
+
     public function categoria(): BelongsTo
     {
         return $this->belongsTo(Categoria::class, 'categoria_codigo', 'codigo');

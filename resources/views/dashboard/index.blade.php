@@ -9,7 +9,7 @@
 
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-                <p class="mb-0 text-secondary">Use o menu para acessar o gerenciamento de clientes e usuarios.</p>
+                <p class="mb-0 text-secondary">Use o menu para acessar o gerenciamento de clientes, produtos e usuarios.</p>
             </div>
         </div>
     </section>
